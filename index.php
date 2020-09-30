@@ -18,7 +18,9 @@ if (isset ($_GET['subject'])) {
      foreach ($data['moves'] as $move) {
         array_push($myMoves, $move['move']['name']);
     }
-    echo var_dump($myMoves);
+    $output = array_slice($myMoves, 0, 4);
+    $output = implode(" ",$output);
+    echo $output;
 
 } else {
     $pokId = 'write a name or id';

@@ -34,7 +34,8 @@ if (isset ($_GET['name'])) {
         $evoPokSrc = '';
     }
 } else {
-    $pokId = 'write a name or id';
+    echo '<h2>Write a name or id of a pokman</h2>';
+    $pokId = '';
     $pokSrc = '';
     $pokName = '';
     $pokMove = '';
@@ -64,7 +65,7 @@ if (isset ($_GET['name'])) {
         <img src="<?php echo $pokSrc ?>">
         <p><?php echo $pokId ?></p>
         <p><?php echo $pokName ?></p>
-        <p><?php echo $output?></p>
+        <p><?php echo $output ?></p>
     </div>
     <div class="result">
         <img src="<?php echo $evoPokSrc ?>">

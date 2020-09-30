@@ -29,9 +29,10 @@ if (isset ($_GET['name'])) {
         $preEvoData = file_get_contents("https://pokeapi.co/api/v2/pokemon/$preEvoName", true);
         $preEvoData = json_decode($preEvoData, true);
         $evoPokSrc =  $preEvoData['sprites']['front_shiny'];
+    } else {
+        $preEvoName = '';
+        $evoPokSrc = '';
     }
-
-
 } else {
     $pokId = 'write a name or id';
     $pokSrc = '';

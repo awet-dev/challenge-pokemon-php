@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 $myMoves = array(); // put the selected moves here
 
-if (isset ($_GET['name'])) {
+if (isset($_GET['name'])) {
     $name_Or_Id = $_GET['name'];
     if ($pokData = file_get_contents("https://pokeapi.co/api/v2/pokemon/$name_Or_Id", true)) {
         $pokData = file_get_contents("https://pokeapi.co/api/v2/pokemon/$name_Or_Id", true);
@@ -18,9 +18,11 @@ if (isset ($_GET['name'])) {
         $pokId = $pokData['id'];
         foreach ($pokData['moves'] as $move) {
             array_push($myMoves, $move['move']['name']);
+            if (count($myMoves) === 4) {
+                break;
+            }
         }
-        $output = array_slice($myMoves, 0, 4); // get only 4 elements from the array
-        $output = implode(" ", $output); // change array to string and separate them with space
+        $output = implode(" ", $myMoves); // change array to string and separate them with space
 
         $evolution = file_get_contents("https://pokeapi.co/api/v2/pokemon-species/$name_Or_Id", true);
         $evoData = json_decode($evolution, true);
@@ -47,6 +49,7 @@ if (isset ($_GET['name'])) {
     $preEvoName = '';
     $evoPokSrc = '';
 }
+
 
 ?>
 

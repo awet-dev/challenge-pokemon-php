@@ -28,13 +28,15 @@ foreach ($data['moves'] as $move) {
 }
 $output = implode(" ", $myMoves); // change array to string and separate them with space
 
-function getEvolution($data) {
-    $evolution_Url = $data['species']['url'];
-    $evolution = getdate($evolution_Url);
-    echo var_dump($evolution);
+$evolution = getData($data['species']['url']);
+if ($evolution['evolves_from_species'] !== NULL) {
+    $evolFrom = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
+} else {
+    $evolFrom['name'] = '';
+    $evolFrom['sprites']['front_shiny'] = '';
 }
 
-getEvolution($data);
+
 
 
 
@@ -57,5 +59,8 @@ getEvolution($data);
 <strong>Id:</strong> #<?php echo $data['id']; ?><br>
 <strong>moves:</strong> <?php echo $output; ?><br>
 <img src="<?php echo $data['sprites']['front_shiny'] ?>" alt="pokman image">
+<hr>
+<strong>Name:</strong> <?php echo $evolFrom['name']; ?><br>
+<img src="<?php echo $evolFrom['sprites']['front_shiny'] ?>" alt="pokman image">
 </body>
 </html>

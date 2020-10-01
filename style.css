@@ -11,6 +11,11 @@
 .input {
     font-size: 15px;
 }
+.center {
+    width: 80%;
+    margin: auto;
+}
+
 @media all {
     div#pokedex
     {
@@ -726,7 +731,7 @@
 
     div#stats
     {
-        height: 130px;
+        height: 300px;
         width: 280px;
         padding: 10px;
         background-color: #30da0c;
@@ -763,8 +768,8 @@
         z-index: 1;
 
         position: absolute;
-        top: 335px;
-        left: 49px;
+        top: 470px;
+        left: 50px;
     }
 
     div.blueButton

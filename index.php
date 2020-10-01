@@ -35,12 +35,12 @@ $output = changArray($data);
 
 $evolution = getData($data['species']['url']);
 $color = $evolution['color']['name'];
-echo $color;
+$flavor_text = $evolution['flavor_text_entries'][0]['flavor_text'];
 if ($evolution['evolves_from_species'] !== NULL) {
-    $evolFrom = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
+    $evolves_from = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
 } else {
-    $evolFrom['name'] = '';
-    $evolFrom['sprites']['front_shiny'] = '';
+    $evolves_from['name'] = 'No previous evolution';
+    $evolves_from['sprites']['front_shiny'] = '';
 }
 
 
@@ -56,18 +56,85 @@ if ($evolution['evolves_from_species'] !== NULL) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form method="get">
-    <input type="text" name="name" placeholder="Enter Name Or Id">
-    <input type="submit" value="Search">
-</form>
-<strong>Name:</strong> <?php echo $data['name']; ?><br>
-<strong>Id:</strong> #<?php echo $data['id']; ?><br>
-<strong>moves:</strong> <?php echo $output; ?><br>
-<img src="<?php echo $data['sprites']['front_shiny'] ?>" alt="pokman image">
-<hr>
-<strong>Name:</strong> <?php echo $evolFrom['name']; ?><br>
-<img src="<?php echo $evolFrom['sprites']['front_shiny'] ?>" alt="pokman image">
+<div id="pokedex">
+    <div id="left">
+        <div id="logo"></div>
+        <div id="bg_curve1_left"></div>
+        <div id="bg_curve2_left"></div>
+        <div id="curve1_left">
+            <div id="buttonGlass">
+                <div id="reflect"> </div>
+            </div>
+            <div id="miniButtonGlass1"></div>
+            <div id="miniButtonGlass2"></div>
+            <div id="miniButtonGlass3"></div>
+        </div>
+        <div id="curve2_left">
+            <div id="junction">
+                <div id="junction1"></div>
+                <div id="junction2"></div>
+            </div>
+        </div>
+        <div id="screen">
+            <div id="topPicture">
+                <div id="buttontopPicture1"></div>
+                <div id="buttontopPicture2"></div>
+            </div>
+            <div id="picture">
+                <img src="<?php echo $data['sprites']['front_shiny'] ?> "height="170"/>
+            </div>
+            <div id="buttonbottomPicture"></div>
+            <div id="speakers">
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+            </div>
+        </div>
+        <div id="bigbluebutton"></div>
+        <div id="barbutton1"></div>
+        <div id="barbutton2"></div>
+        <div id="cross">
+            <div id="leftcross">
+                <div id="leftT"></div>
+            </div>
+            <div id="topcross">
+                <div id="upT"></div>
+            </div>
+            <div id="rightcross">
+                <div id="rightT"></div>
+            </div>
+            <div id="midcross">
+                <div id="midCircle"></div>
+            </div>
+            <div id="botcross">
+                <div id="downT"></div>
+            </div>
+        </div>
+    </div>
+    <div id="right">
+        <div id="stats">
+            <strong>Name:</strong> <?php echo $data['name']; ?><br>
+            <strong>Id:</strong> #<?php echo $data['id']; ?><br>
+            <strong>moves:</strong> <?php echo $output; ?><br>
+            <strong id="center">flavor:</strong> <?php echo $flavor_text; ?><br>
+            <strong>Name:</strong> <?php echo $evolves_from['name']; ?><br>
+            <img src="<?php echo $evolves_from['sprites']['front_shiny'] ?>" />
+        </div>
+        <div id="blueButtons2">
+            <form method="get">
+                <input type="text" name="name" placeholder="Enter Name Or Id">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div id="bg_curve1_right"></div>
+        <div id="bg_curve2_right"></div>
+        <div id="curve1_right"></div>
+        <div id="curve2_right"></div>
+    </div>
+</div>
 </body>
 </html>

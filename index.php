@@ -34,6 +34,15 @@ $data = getData($url);
 $output = changArray($data);
 
 $evolution = getData($data['species']['url']);
+/*
+$evolutionChain = getData($evolution['evolution_chain']['url']);
+while ($evolutionChain['chain']['evolves_to']) {
+    $link = $evolutionChain['chain']['evolves_to'][0]['species']['name'];
+    $name = $link;
+    $link += ['evolves_to'][0]['species']['name'];
+    var_dump($evolutionChain);
+}
+ */
 $color = $evolution['color']['name'];
 $flavor_text = $evolution['flavor_text_entries'][0]['flavor_text'];
 if ($evolution['evolves_from_species'] !== NULL) {
@@ -42,10 +51,6 @@ if ($evolution['evolves_from_species'] !== NULL) {
     $evolves_from['name'] = 'No previous evolution';
     $evolves_from['sprites']['front_shiny'] = '';
 }
-
-
-
-
 
 ?>
 <!doctype html>
@@ -125,9 +130,9 @@ if ($evolution['evolves_from_species'] !== NULL) {
             <img src="<?php echo $evolves_from['sprites']['front_shiny'] ?>" />
         </div>
         <div id="blueButtons2">
-            <form method="get">
-                <input type="text" name="name" placeholder="Enter Name Or Id">
-                <input type="submit" value="Search">
+            <form method="get" id="input-form">
+                <input class="input" type="text" name="name" placeholder="Enter Name Or Id">
+                <input class="input" type="submit" value="Search">
             </form>
         </div>
         <div id="bg_curve1_right"></div>

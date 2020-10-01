@@ -5,8 +5,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$myMoves = array(); // put the selected moves here
-
+ // put the selected moves here
+$myText = array();
 if (isset($_GET['name'])){
     $pokemon = $_GET['name'];
 } else {
@@ -18,17 +18,24 @@ function getData($http) {
     return json_decode($get, true);
 }
 
+function changArray($data) {
+    $array = array();
+    foreach ($data['moves'] as $move) {
+        array_push($array, $move['move']['name']);
+        if (count($array) === 4) {
+            break;
+        }
+    }
+    return implode(" ", $array); // change array to string and separate them with space
+}
+
 $url = "https://pokeapi.co/api/v2/pokemon/$pokemon";
 $data = getData($url);
-foreach ($data['moves'] as $move) {
-    array_push($myMoves, $move['move']['name']);
-    if (count($myMoves) === 4) {
-        break;
-    }
-}
-$output = implode(" ", $myMoves); // change array to string and separate them with space
+$output = changArray($data);
 
 $evolution = getData($data['species']['url']);
+$color = $evolution['color']['name'];
+echo $color;
 if ($evolution['evolves_from_species'] !== NULL) {
     $evolFrom = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
 } else {

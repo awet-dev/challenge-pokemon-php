@@ -66,7 +66,7 @@ if ($evolution['evolves_from_species'] !== NULL) {
         <div id="bg_curve2_left"></div>
         <div id="curve1_left">
             <div id="buttonGlass">
-                <div id="reflect"> </div>
+                <div id="reflect"></div>
             </div>
             <div id="miniButtonGlass1"></div>
             <div id="miniButtonGlass2"></div>
@@ -116,7 +116,7 @@ if ($evolution['evolves_from_species'] !== NULL) {
         </div>
     </div>
     <div id="right">
-        <div id="stats">
+        <div id="stats" style="background-color: <?php echo $color?>">
             <strong>Name:</strong> <?php echo $data['name']; ?><br>
             <strong>Id:</strong> #<?php echo $data['id']; ?><br>
             <strong>moves:</strong> <?php echo $output; ?><br>

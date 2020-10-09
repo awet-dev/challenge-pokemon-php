@@ -5,7 +5,16 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
- // put the selected moves here
+
+// display 20 pokemon in grid in one page and so one === so generate grid for each pokemon
+// if no input number loop over 20 and display the first 20 pokemon /=== use pagination
+// but if listed amount of number loop over the listed iteration and display that many pokemon
+//
+// display 20 in one page by looping 20 times and generate the first 20 pokemon
+// if the second button is clicked start form the last pokemon and loop 20 times and so on
+
+
+// put the selected moves here
 $myText = array();
 if (isset($_GET['name'])){
     $pokemon = $_GET['name'];
@@ -61,85 +70,61 @@ if ($evolution['evolves_from_species'] !== NULL) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<div id="pokedex">
-    <div id="left">
-        <div id="logo"></div>
-        <div id="bg_curve1_left"></div>
-        <div id="bg_curve2_left"></div>
-        <div id="curve1_left">
-            <div id="buttonGlass">
-                <div id="reflect"></div>
-            </div>
-            <div id="miniButtonGlass1"></div>
-            <div id="miniButtonGlass2"></div>
-            <div id="miniButtonGlass3"></div>
-        </div>
-        <div id="curve2_left">
-            <div id="junction">
-                <div id="junction1"></div>
-                <div id="junction2"></div>
-            </div>
-        </div>
-        <div id="screen">
-            <div id="topPicture">
-                <div id="buttontopPicture1"></div>
-                <div id="buttontopPicture2"></div>
-            </div>
-            <div id="picture">
-                <img src="<?php echo $data['sprites']['front_shiny'] ?> "height="170"/>
-            </div>
-            <div id="buttonbottomPicture"></div>
-            <div id="speakers">
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
+<div class="container">
+
+    <!--here start the new code-->
+
+    <div class="row">
+        <nav aria-label="Page navigation example" class="col-sm">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
+        <div class="dropdown col-sm">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
             </div>
         </div>
-        <div id="bigbluebutton"></div>
-        <div id="barbutton1"></div>
-        <div id="barbutton2"></div>
-        <div id="cross">
-            <div id="leftcross">
-                <div id="leftT"></div>
-            </div>
-            <div id="topcross">
-                <div id="upT"></div>
-            </div>
-            <div id="rightcross">
-                <div id="rightT"></div>
-            </div>
-            <div id="midcross">
-                <div id="midCircle"></div>
-            </div>
-            <div id="botcross">
-                <div id="downT"></div>
+
+        <div class="dropdown col-sm">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
             </div>
         </div>
     </div>
-    <div id="right">
-        <div id="stats" style="background-color: <?php echo $color?>">
-            <strong>Name:</strong> <?php echo $data['name']; ?><br>
-            <strong>Id:</strong> #<?php echo $data['id']; ?><br>
-            <strong>moves:</strong> <?php echo $output; ?><br>
-            <strong id="center">flavor:</strong> <?php echo $flavor_text; ?><br>
-            <strong>Name:</strong> <?php echo $evolves_from['name']; ?><br>
-            <img src="<?php echo $evolves_from['sprites']['front_shiny'] ?>" />
+
+    <div class="container">
+        <div class="row row-cols-4">
+            <div class="col">Column</div>
+            <div class="col">Column</div>
+            <div class="col">Column</div>
+            <div class="col">Column</div>
         </div>
-        <div id="blueButtons2">
-            <form method="get" id="input-form">
-                <input class="input" type="text" name="name" placeholder="Enter Name Or Id">
-                <input class="input" type="submit" value="Search">
-            </form>
-        </div>
-        <div id="bg_curve1_right"></div>
-        <div id="bg_curve2_right"></div>
-        <div id="curve1_right"></div>
-        <div id="curve2_right"></div>
     </div>
+
+    <!--here start the old code-->
+
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>

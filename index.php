@@ -5,44 +5,29 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+//$myText = array();
+//if (isset($_GET['name'])){
+//    $pokemon = $_GET['name'];
+//} else {
+//    $pokemon = 1;
+//}
 
-// display 20 pokemon in grid in one page and so one === so generate grid for each pokemon
-// if no input number loop over 20 and display the first 20 pokemon /=== use pagination
-// but if listed amount of number loop over the listed iteration and display that many pokemon
-//
-// display 20 in one page by looping 20 times and generate the first 20 pokemon
-// if the second button is clicked start form the last pokemon and loop 20 times and so on
 
 
-// put the selected moves here
-$myText = array();
-if (isset($_GET['name'])){
-    $pokemon = $_GET['name'];
-} else {
-    $pokemon = 1;
-}
+//function changArray($data) {
+//    $array = array();
+//    foreach ($data['moves'] as $move) {
+//        array_push($array, $move['move']['name']);
+//        if (count($array) === 4) {
+//            break;
+//        }
+//    }
+//    return implode(" ", $array); // change array to string and separate them with space
+//}
 
-function getData($http) {
-    $get = file_get_contents($http, true);
-    return json_decode($get, true);
-}
+//$output = changArray($data);
 
-function changArray($data) {
-    $array = array();
-    foreach ($data['moves'] as $move) {
-        array_push($array, $move['move']['name']);
-        if (count($array) === 4) {
-            break;
-        }
-    }
-    return implode(" ", $array); // change array to string and separate them with space
-}
-
-$url = "https://pokeapi.co/api/v2/pokemon/$pokemon";
-$data = getData($url);
-$output = changArray($data);
-
-$evolution = getData($data['species']['url']);
+//$evolution = getData($data['species']['url']);
 /*
 $evolutionChain = getData($evolution['evolution_chain']['url']);
 while ($evolutionChain['chain']['evolves_to']) {
@@ -52,13 +37,37 @@ while ($evolutionChain['chain']['evolves_to']) {
     var_dump($evolutionChain);
 }
  */
-$color = $evolution['color']['name'];
-$flavor_text = $evolution['flavor_text_entries'][0]['flavor_text'];
-if ($evolution['evolves_from_species'] !== NULL) {
-    $evolves_from = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
-} else {
-    $evolves_from['name'] = 'No previous evolution';
-    $evolves_from['sprites']['front_shiny'] = '';
+//$color = $evolution['color']['name'];
+//$flavor_text = $evolution['flavor_text_entries'][0]['flavor_text'];
+//if ($evolution['evolves_from_species'] !== NULL) {
+//    $evolves_from = getData('https://pokeapi.co/api/v2/pokemon/'.$evolution['evolves_from_species']['name']);
+//} else {
+//    $evolves_from['name'] = 'No previous evolution';
+//    $evolves_from['sprites']['front_shiny'] = '';
+//}
+
+
+// display 20 pokemon in grid in one page and so one === so generate grid for each pokemon
+// if no input number loop over 20 and display the first 20 pokemon /=== use pagination
+// but if listed amount of number loop over the listed iteration and display that many pokemon
+//
+// display 20 in one page by looping 20 times and generate the first 20 pokemon
+// if the second button is clicked start form the last pokemon and loop 20 times and so on
+
+//  ================================= start ======================================== //
+
+// get data form the pokemon api
+function getData($http) {
+    $get = file_get_contents($http, true);
+    return json_decode($get, true);
+}
+
+$img_src = [];
+
+for ($i = 1; $i <= 20; $i++) {
+    $url = "https://pokeapi.co/api/v2/pokemon/$i";
+    $data = getData($url);
+    array_push($img_src, $data['sprites']['front_shiny']);
 }
 
 ?>
@@ -110,6 +119,10 @@ if ($evolution['evolves_from_species'] !== NULL) {
             </div>
         </div>
     </div>
+
+    <?php foreach ($img_src as $value) {
+        echo "<img src='$value' class='img-fluid' alt='Responsive image'>";
+    }?>
 
     <div class="container">
         <div class="row row-cols-4">

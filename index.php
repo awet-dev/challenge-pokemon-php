@@ -13,18 +13,6 @@ error_reporting(E_ALL);
 //}
 
 
-
-//function changArray($data) {
-//    $array = array();
-//    foreach ($data['moves'] as $move) {
-//        array_push($array, $move['move']['name']);
-//        if (count($array) === 4) {
-//            break;
-//        }
-//    }
-//    return implode(" ", $array); // change array to string and separate them with space
-//}
-
 //$output = changArray($data);
 
 //$evolution = getData($data['species']['url']);
@@ -62,14 +50,37 @@ function getData($http) {
     return json_decode($get, true);
 }
 
+function changArray($data) {
+    $moves = array();
+    foreach ($data['moves'] as $move) {
+        array_push($moves, $move['move']['name']);
+        if (count($moves) === 4) {
+            break;
+        }
+    }
+    return implode(" ", $moves); // change array to string and separate them with space
+}
+
 $img_src = [];
 $pok_name = [];
-
+$pok_id = [];
+$moves = [];
 for ($i = 1; $i <= 20; $i++) {
     $url = "https://pokeapi.co/api/v2/pokemon/$i";
     $data = getData($url);
+    array_push($moves, changArray($data));
+    array_push($pok_id, $data['id']);
     array_push($img_src, $data['sprites']['front_shiny']);
     array_push($pok_name, $data['name']);
+}
+
+// if it is clicked display the detail of that pokemon
+if (isset($_GET['link'])) {
+    $index = $_GET['link'];
+    $id = $pok_id[$index];
+    $move = $moves[$index];
+} else {
+    unset($id);
 }
 
 ?>
@@ -126,10 +137,10 @@ for ($i = 1; $i <= 20; $i++) {
         <figure class="figure row row-cols-4">
             <?php foreach ($img_src AS $g => $value) {
                 echo "<div class='col'>
-                            <a href='#'><img src='$value' class='figure-img img-fluid rounded' alt='Responsive image'/></a>
-                            <figcaption class='figure-caption'>$pok_name[$g];</figcaption>
-                      </div>";
-            }?>
+                            <a href='?link=$g'><img src='$value' class='figure-img img-fluid rounded' alt='Responsive image'/></a>
+                            <figcaption class='figure-caption'>$pok_name[$g]</figcaption>
+                      </div>";}
+            ?>
         </figure>
     </div>
     <!--here start the old code-->

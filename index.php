@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 
 //$output = changArray($data);
 
-//$evolution = getData($data['species']['url']);
+
 /*
 $evolutionChain = getData($evolution['evolution_chain']['url']);
 while ($evolutionChain['chain']['evolves_to']) {
@@ -50,6 +50,15 @@ function getData($http) {
     return json_decode($get, true);
 }
 
+function get_evolution($http) {
+    $get = file_get_contents($http, true);
+    $data = json_decode($get, true);
+    $evolution_url = $data['species']['url'];
+    $get = file_get_contents($evolution_url, true);
+    $data = json_decode($get, true);
+    return array('color' => $data['color']['name'], 'species' => $data['evolves_from_species']);
+}
+
 function changArray($data) {
     $moves = array();
     foreach ($data['moves'] as $move) {
@@ -79,6 +88,13 @@ if (isset($_GET['link'])) {
     $index = $_GET['link'];
     $id = $pok_id[$index];
     $move = $moves[$index];
+    $evolve_from_species = get_evolution("https://pokeapi.co/api/v2/pokemon/$id");
+    $color = $evolve_from_species['color'];
+    if($evolve_from_species['species'] !== NULL) {
+        $name_evolve_species = $evolve_from_species['species']['name'];
+        $evolve_data = getData("https://pokeapi.co/api/v2/pokemon/$name_evolve_species");
+        $evolve_img_src = $evolve_data['sprites']['front_shiny'];
+    }
 } else {
     unset($id);
 }

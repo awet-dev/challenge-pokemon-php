@@ -63,11 +63,13 @@ function getData($http) {
 }
 
 $img_src = [];
+$pok_name = [];
 
 for ($i = 1; $i <= 20; $i++) {
     $url = "https://pokeapi.co/api/v2/pokemon/$i";
     $data = getData($url);
     array_push($img_src, $data['sprites']['front_shiny']);
+    array_push($pok_name, $data['name']);
 }
 
 ?>
@@ -120,19 +122,16 @@ for ($i = 1; $i <= 20; $i++) {
         </div>
     </div>
 
-    <?php foreach ($img_src as $value) {
-        echo "<img src='$value' class='img-fluid' alt='Responsive image'>";
-    }?>
-
-    <div class="container">
-        <div class="row row-cols-4">
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-            <div class="col">Column</div>
-        </div>
+    <div class="container text-center">
+        <figure class="figure row row-cols-4">
+            <?php foreach ($img_src AS $g => $value) {
+                echo "<div class='col'>
+                            <img src='$value' class='figure-img img-fluid rounded' alt='Responsive image'>
+                            <figcaption class='figure-caption'>$pok_name[$g];</figcaption>
+                      </div>";
+            }?>
+        </figure>
     </div>
-
     <!--here start the old code-->
 
 </div>

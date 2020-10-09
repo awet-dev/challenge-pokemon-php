@@ -126,7 +126,7 @@ for ($i = 1; $i <= 20; $i++) {
         <figure class="figure row row-cols-4">
             <?php foreach ($img_src AS $g => $value) {
                 echo "<div class='col'>
-                            <img src='$value' class='figure-img img-fluid rounded' alt='Responsive image'>
+                            <a href='#'><img src='$value' class='figure-img img-fluid rounded' alt='Responsive image'/></a>
                             <figcaption class='figure-caption'>$pok_name[$g];</figcaption>
                       </div>";
             }?>

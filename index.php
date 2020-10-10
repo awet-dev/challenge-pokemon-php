@@ -140,27 +140,40 @@ for ($i = 1; $i <= 20; $i++) {
 
             if (isset($_GET['link'])) {
                 $index = $_GET['link'];
-                $id = $pok_id[$index];
+                $parent_id = $pok_id[$index];
+                $parent_name = $pok_name[$index];
+                $parent_img_src = $img_src[$index];
                 $move = $moves[$index];
-                $evolve_from_species = get_evolution("https://pokeapi.co/api/v2/pokemon/$id");
+                $evolve_from_species = get_evolution("https://pokeapi.co/api/v2/pokemon/$parent_id");
                 $color = $evolve_from_species['color'];
                 $evolve_img_src = "";
                 $name_evolve_species = "";
                 $evolve_id = "";
+                $evolve_move = "";
                 if($evolve_from_species['species'] !== NULL) {
                     $name_evolve_species = $evolve_from_species['species']['name'];
                     $evolve_data = getData("https://pokeapi.co/api/v2/pokemon/$name_evolve_species");
                     $evolve_img_src = $evolve_data['sprites']['front_shiny'];
                     $evolve_id = $evolve_data['id'];
+                    $evolve_move = changArray($evolve_data);
                 }
 
-                echo "<div class='card' style='width: 18rem;'>
+                echo "<div class='row'>
+                          <div class='card col-sm' style='width: 18rem;'>
+                            <img src='$parent_img_src' class='card-img-top' alt=''>
+                            <div class='card-body'>
+                                <h5 class='card-title'><strong>Name: </strong>$parent_name, <strong>Id: </strong>$parent_id</h5>
+                                <p class='card-text'><strong>Moves: </strong>$move</p>
+                            </div>
+                          </div>
+                          <div class='card col-sm' style='width: 18rem;'>
                             <img src='$evolve_img_src' class='card-img-top' alt=''>
                             <div class='card-body'>
                                 <h5 class='card-title'><strong>Name: </strong>$name_evolve_species, <strong>Id: </strong>$evolve_id</h5>
-                                <p class='card-text'><strong>Moves: </strong>$move</p>
+                                <p class='card-text'><strong>Moves: </strong>$evolve_move</p>
                             </div>
-                       </div>";
+                          </div>
+                      </div>";
 
             } else {
                 unset($id);

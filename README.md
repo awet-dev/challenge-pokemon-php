@@ -40,7 +40,6 @@ PHP has very good documentation available on www.php.net. There is a nice trick 
 ## PHP the right way
 Another interesting read is https://phptherightway.com. This is not so much documentation over each separate function, but gives you more an overview of best practices and how different components work together.
 
-### In the branch flow this guidnce
 # Title: The Extreme pokemon challenge
 - Repository: `challenge-pokemon-php` (You should already have this repo, just make a branch on it.)
 - Type of Challenge: `Learning Challenge`
